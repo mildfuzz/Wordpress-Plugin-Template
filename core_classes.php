@@ -62,5 +62,9 @@ class PluginUtilities{
 			$this->$k = $v;
 		}
 	  }
+	
+	function slugger($string){
+		return str_replace(" ","_",strtolower($string));
+	}
 }
 ?>

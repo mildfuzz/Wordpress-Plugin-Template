@@ -10,7 +10,13 @@ function install_pages(){
 			'menu_slug' => 'plugin_template',
 			'include' => 'page_templates/plugin.php',
 	);
+	$sub_pages = array('Sub Page 1' => "page_templates/subpage1.php",'Sub Page 2' => "page_templates/subpage2.php");
+	
 	$pluginPage = new PluginPage($pages);
+	$pluginPage->sub_pages($sub_pages);
+	
+	
+	
 }
 
 
@@ -37,27 +43,31 @@ class PluginPage extends PluginUtilities
     
   }
   
-  function add_top_level_menu(){
+  	function add_top_level_menu(){
+		// Creates a top level admin menu - this kicks off the 'display_page()' function to build the page
+    	add_menu_page($this->page_title, $this->menu_title, $this->capability, $this->menu_slug, array(&$this, 'display_page'));
+  	}
 	
-	    // Creates a top level admin menu - this kicks off the 'display_page()' function to build the page
-        add_menu_page($this->page_title, $this->menu_title, $this->capability, $this->menu_slug, array(&$this, 'display_page'));
-  }
-	/*
-	function add_sub_menu(){
-		// Adds an additional sub menu page to the above menu - if we add this, we end up with 2 sub menu pages (the main pages is then in sub menu. But if we omit this, we have no sub menu
-        // This has been left in incase we want to add an additional page here soon
-        //add_submenu_page( $menu_slug, 'sub menu 1', 'sub menu 1', $this->capability, $menu_slug . '_sub_menu_page_1', $function );
+	function sub_pages($pages){
+		if(!is_array($pages)) wp_die("sub_pages requires and array");
+		foreach($pages as $title => $display){
+			$this->add_sub_page($title,$display);
+		}
+		
 	}
-	*/
 	
+	private function add_sub_page($title, $display){
+		add_submenu_page( $this->menu_slug, $title, $title, $this->capability, $this->menu_slug . '_' . $this->slugger($title), $this->display_page($display));
+	}
 
-    function display_page()
+    function display_page($include = false)
     {
-        if (!current_user_can($this->capability ))
+        if(!$include) $include = $this->include;
+		if (!current_user_can($this->capability ))
         wp_die(__('You do not have sufficient permissions to access this page.'));
       	//Include PHP to build page - > Relative to script
       	if($this->include != ""){
-			include($this->include);
+			include($include);
 		} else {
 			echo "Nothing to Display";
 		}
