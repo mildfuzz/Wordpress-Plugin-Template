@@ -73,11 +73,11 @@ class PluginUtilities{
 		$wpdb->get_results("SELECT * FROM $table_name ".($where ? $where : "").";");
 	}
 	
-	function fetch_post(){
+	function fetch_post($callback){
 		if(!isset($_POST)){
 			return false;
 		} else {
-			fb::log($_POST,'post');
+			call_user_func($callback);
 		}
 	}
 }
