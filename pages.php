@@ -5,16 +5,16 @@ add_action('admin_menu','install_pages');
 
 function install_pages(){
 	$pages = array(
-			'page_title' => 'Plugin Template',
-			'menu_title' => 'Plugin Template',
+			'page_title' => 'Contacts',
+			'menu_title' => 'Contacts',
 			'menu_slug' => 'plugin_template',
 			'include' => 'page_templates/main_page.php',
 	);
 	
 	
 	$pluginPage = new PluginPage($pages);
-	$pluginSubPage = new PluginSubPage($pluginPage, 'Sub Page 1',"page_templates/subpage1.php");
-	$pluginSubPage2 = new PluginSubPage($pluginPage, 'Sub Page 2',"page_templates/subpage2.php");
+	//$pluginSubPage = new PluginSubPage($pluginPage, 'Sub Page 1',"page_templates/subpage1.php");
+	//$pluginSubPage2 = new PluginSubPage($pluginPage, 'Sub Page 2',"page_templates/subpage2.php");
 	
 	
 	

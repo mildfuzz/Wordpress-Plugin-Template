@@ -73,6 +73,7 @@ class PluginUtilities{
 		$wpdb->get_results("SELECT * FROM $table_name ".($where ? $where : "").";");
 	}
 	
+	//only processes call back if the page has POST set
 	function fetch_post($callback){
 		if(!isset($_POST)){
 			return false;

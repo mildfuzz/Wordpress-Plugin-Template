@@ -31,7 +31,8 @@ $pluginTables = array(
 		'tables' => array(
 					"contacts" => array(
 							'email' => 'text NOT NULL',
-							'label' => 'text NOT NULL' 
+							'name'	=> 'text NOT NULL',
+							'section' => 'text NOT NULL'
 						)
 					)
 				);
