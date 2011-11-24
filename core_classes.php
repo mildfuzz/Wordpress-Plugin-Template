@@ -53,6 +53,10 @@ class PluginTables extends PluginUtilities
 			
 		}
 	}
+	function fetch_table($table_name, $where = false){
+		global $wpdb;
+		$wpdb->get_results("SELECT * FROM $table_name ".($where ? $where : "").";");
+	}
 }
 
 class PluginUtilities{
