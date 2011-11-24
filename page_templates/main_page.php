@@ -4,10 +4,9 @@ $mf_plugin->fetch_post('process_contacts');
 
 function process_contacts(){
 	global $mf_plugin, $mf_message;
-	foreach($_POST as $v){
+	foreach($_POST as $k=>$v){
 		if(!$v){
-			
-			return false;
+			showMessage($k." is a required field", true);
 		} 
 	}
 }
