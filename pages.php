@@ -8,9 +8,9 @@ function install_pages(){
 			'page_title' => 'Plugin Template',
 			'menu_title' => 'Plugin Template',
 			'menu_slug' => 'plugin_template',
-			'include' => 'page_templates/plugin.php',
+			'include' => 'page_templates/main_page.php',
 	);
-	$sub_pages = array('Sub Page 1' => "page_templates/subpage1.php",'Sub Page 2' => "page_templates/subpage2.php");
+	
 	
 	$pluginPage = new PluginPage($pages);
 	$pluginSubPage = new PluginSubPage($pluginPage, 'Sub Page 1',"page_templates/subpage1.php");
