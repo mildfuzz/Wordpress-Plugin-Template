@@ -1,7 +1,7 @@
 <?php
 
 add_action('admin_menu','install_pages');
-//add_action( 'admin_menu', array( $$this, 'add_sub_menu'),11);
+
 
 function install_pages(){
 	$pages = array(
@@ -13,11 +13,34 @@ function install_pages(){
 	$sub_pages = array('Sub Page 1' => "page_templates/subpage1.php",'Sub Page 2' => "page_templates/subpage2.php");
 	
 	$pluginPage = new PluginPage($pages);
-	$pluginPage->sub_pages($sub_pages);
+	$pluginSubPage = new PluginSubPage($pluginPage, 'Sub Page 1',"page_templates/subpage1.php");
+	$pluginSubPage2 = new PluginSubPage($pluginPage, 'Sub Page 2',"page_templates/subpage2.php");
 	
 	
 	
 }
+class PluginSubPage extends PluginPage
+{
+
+  protected $submenu_slug;
+
+  function __construct($parent,$title,$include){
+	$args = get_object_vars($parent);
+	$this->parse_args($args);
+	$this->include = $include;
+	$this->menu_title = $title;
+	$this->submenu_slug = $this->menu_slug . '_' . $this->slugger($this->menu_title);
+	
+	$this->add_page();
+    }
+  
+  	
+	
+	function add_page(){
+		add_submenu_page( $this->menu_slug, $this->menu_title, $this->menu_title, $this->capability, $this->submenu_slug, array($this, 'display_page'));
+	}
+}
+
 
 
 class PluginPage extends PluginUtilities
@@ -32,45 +55,50 @@ class PluginPage extends PluginUtilities
   protected $icon_url = NULL;
   protected $position = '';
   protected $include = "";
-
+  
+  
   function __construct(){
 	
 	$args = func_get_args();
 	$this->parse_args($args[0]);
 	
 	
-	$this->add_top_level_menu();
+	$this->add_page();
     
   }
   
-  	function add_top_level_menu(){
+  	function add_page(){
 		// Creates a top level admin menu - this kicks off the 'display_page()' function to build the page
-    	add_menu_page($this->page_title, $this->menu_title, $this->capability, $this->menu_slug, array(&$this, 'display_page'));
+    	add_menu_page($this->page_title, $this->menu_title, $this->capability, $this->menu_slug, array($this, 'display_page'));
   	}
 	
-	function sub_pages($pages){
-		if(!is_array($pages)) wp_die("sub_pages requires and array");
-		foreach($pages as $title => $display){
-			$this->add_sub_page($title,$display);
-		}
-		
-	}
 	
-	private function add_sub_page($title, $display){
-		add_submenu_page( $this->menu_slug, $title, $title, $this->capability, $this->menu_slug . '_' . $this->slugger($title), $this->display_page($display));
-	}
-
-    function display_page($include = false)
+    function display_page()
     {
-        if(!$include) $include = $this->include;
+        
 		if (!current_user_can($this->capability ))
         wp_die(__('You do not have sufficient permissions to access this page.'));
       	//Include PHP to build page - > Relative to script
       	if($this->include != ""){
-			include($include);
+			include($this->include);
 		} else {
 			echo "Nothing to Display";
 		}
 	}
+	
+	static function display_sub_page($args = false)
+    {
+        
+		var_dump($args);
+      	if($arg){
+			include($arg);
+		} else {
+			echo "Nothing to Display";
+		}
+	}
+	
 }
+
+
+
 ?>
