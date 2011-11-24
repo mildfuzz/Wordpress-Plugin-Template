@@ -1,14 +1,28 @@
 <?php
 class PluginTables extends PluginUtilities
 {
-   protected $tables;
-
+    public $tables;
+	public $table_names;
+	
    	function __construct(){
 		$args = func_get_args();
 		
 		$this->parse_args($args[0]);
 		
 		
+		if($this->tables){
+			$this->assign_table_names();
+		}
+		
+		
+	}
+	
+	function assign_table_names(){
+		//set array of all table names in full
+		global $wpdb;
+		foreach($this->tables as $table_name => $fields){
+			$this->table_names = $wpdb->prefix . $table_name;
+		}
 	}
 	
 	function parse_args($args){
