@@ -38,8 +38,6 @@ class PluginTables extends PluginUtilities
 				dbDelta($sql[$table_name]);
 			} 
 		}
-		
-		
 	}
 	
 	function deactivate(){
@@ -53,10 +51,8 @@ class PluginTables extends PluginUtilities
 			
 		}
 	}
-	function fetch_table($table_name, $where = false){
-		global $wpdb;
-		$wpdb->get_results("SELECT * FROM $table_name ".($where ? $where : "").";");
-	}
+	
+	
 }
 
 class PluginUtilities{
@@ -69,6 +65,20 @@ class PluginUtilities{
 	
 	function slugger($string){
 		return str_replace(" ","_",strtolower($string));
+	}
+	
+	//fetch table row
+	function fetch_table($table_name, $where = false){
+		global $wpdb;
+		$wpdb->get_results("SELECT * FROM $table_name ".($where ? $where : "").";");
+	}
+	
+	function fetch_post(){
+		if(!isset($_POST)){
+			return false;
+		} else {
+			fb::log($_POST,'post');
+		}
 	}
 }
 ?>

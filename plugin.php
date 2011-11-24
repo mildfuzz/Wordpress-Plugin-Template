@@ -26,7 +26,7 @@ License: GPL2
 //load core classes
 include 'core_classes.php';
 
-global $table;
+global $mf_plugin;
 $pluginTables = array(
 		'tables' => array(
 					"contacts" => array(
@@ -36,17 +36,17 @@ $pluginTables = array(
 					)
 				);
 				
-$table = new PluginTables($pluginTables);
+$mf_plugin = new PluginTables($pluginTables);
 		
 register_activation_hook(__FILE__,'mf_activate_plugin');
 register_deactivation_hook(__FILE__,'mf_deactivate_plugin');
 	
 function mf_activate_plugin(){
-	global $table;
+	global $mf_plugin;
 	$table->activate();
 }
 function mf_deactivate_plugin(){
-	global $table;
+	global $mf_plugin;
 	
 	$table->deactivate();
 }
