@@ -84,7 +84,7 @@ class PluginUtilities{
 	//fetch table row
 	function fetch_table($table_name, $where = false){
 		global $wpdb;
-		$wpdb->get_results("SELECT * FROM $table_name ".($where ? $where : "").";");
+		return $wpdb->get_results("SELECT * FROM $table_name ".($where ? $where : "").";");
 	}
 	
 	//only processes call back if the page has POST set
