@@ -70,6 +70,19 @@ class mf {
 		$query = self::buildUrlQuery($query);
 		return $curl[0].$query;
 	}
+	
+	static function removeQueryElements($query_elements = array()){
+		$get = $_GET;
+		foreach($get as $k=>$v){
+			if(array_key_exists($k, array_flip($query_elements))) unset($get[$k]);
+		}
+		
+		$new_query = self::buildUrlQuery($get, false);
+		
+		$curl = explode("?",$_SERVER['REQUEST_URI']);
+		return $curl[0].$new_query;
+		
+	}
 }
 
 ?>
