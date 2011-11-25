@@ -89,7 +89,7 @@ class PluginUtilities{
 	
 	//only processes call back if the page has POST set
 	function fetch_post($callback){
-		if(!isset($_POST)){
+		if(!isset($_POST) || count($_POST) < 1){
 			return false;
 		} else {
 			call_user_func($callback);
