@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 global $mf_plugin;
 $mf_plugin->fetch_post('process_contacts');
 $contacts = $mf_plugin->fetch_table($mf_plugin->table_names[0]);
@@ -28,7 +27,7 @@ function process_contacts(){
 	} 
 	if($failed) return false;
 	
-	fb::log($_POST,$contactsTable);
+	
 	$wpdb->insert($contactsTable,$_POST);
 	mf::wpLog($_POST['name']." added to contacts");
 	
@@ -55,12 +54,15 @@ function process_contacts(){
 		<th>Section</th>
 		<th>Action</th>
 	</thead>
-<?php foreach($contacts as $contact): ?>
+<?php foreach($contacts as $contact): 
+$delete = array('action' => 'delete', 'id'=>$contact->id);
+$edit = array('action' => 'edit', 'ID'=>$contact->id);
+?>
 <tr>
 <td><?php echo $contact->name; ?></td>
 <td><?php echo $contact->email; ?></td>
 <td><?php echo $contact->section; ?></td>
-<td><a href=#>Edit</a>/<a href=>Delete</a></td>
+<td><a href="<?php echo mf::urlQuery($edit); ?>">Edit</a>/<a href="<?php echo mf::urlQuery($delete); ?>">Delete</a></td>
 </tr>
 <?php endforeach; ?>
 </table>
