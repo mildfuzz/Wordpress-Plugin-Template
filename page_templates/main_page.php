@@ -1,6 +1,11 @@
 <?php
 global $mf_plugin;
-$mf_plugin->fetch_post('process_contacts');
+if(isset($_GET['action'])){
+	if($_GET['action'] == 'delete') delete_contact($_GET['id']);
+} else {
+	$mf_plugin->fetch_post('process_contacts');
+}
+
 $contacts = $mf_plugin->fetch_table($mf_plugin->table_names[0]);
 
 function process_contacts(){
@@ -34,6 +39,15 @@ function process_contacts(){
 	
 	
 	
+}
+
+function delete_contact($id){
+	global $wpdb, $mf_plugin;
+	$table = $mf_plugin->table_names[0];
+	$wpdb->query("
+		DELETE FROM $table 
+		WHERE id = $id");
+	header("Location: ".mf::removeQueryElements(array('action','id')));
 }
 
 ?>
