@@ -11,7 +11,7 @@ function process_contacts(){
 
 	foreach($_POST as $k=>$v){
 		if(!$v){
-			showMessage($k." is a required field", true);
+			mf::wpLog($k." is a required field", true);
 			$failed = true;
 		} 
 		
@@ -23,14 +23,14 @@ function process_contacts(){
 	$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $contactsTable WHERE email = '$email';" ));
 	
 	if($count > 0){
-		showMessage("email already in use", true);
+		mf::wpLog("email already in use", true);
 		$failed = true;
 	} 
 	if($failed) return false;
 	
 	fb::log($_POST,$contactsTable);
 	$wpdb->insert($contactsTable,$_POST);
-	showMessage($_POST['name']." added to contacts");
+	mf::wpLog($_POST['name']." added to contacts");
 	
 	
 	
@@ -60,7 +60,7 @@ function process_contacts(){
 <td><?php echo $contact->name; ?></td>
 <td><?php echo $contact->email; ?></td>
 <td><?php echo $contact->section; ?></td>
-<td><a href=#>Edit</a>/<a href=#>Delete</a></td>
+<td><a href=#>Edit</a>/<a href=>Delete</a></td>
 </tr>
 <?php endforeach; ?>
 </table>
