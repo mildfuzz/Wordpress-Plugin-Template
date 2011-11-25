@@ -21,7 +21,7 @@ class PluginTables extends PluginUtilities
 		//set array of all table names in full
 		global $wpdb;
 		foreach($this->tables as $table_name => $fields){
-			$this->table_names = $wpdb->prefix . $table_name;
+			$this->table_names[] = $wpdb->prefix . $table_name;
 		}
 	}
 	
