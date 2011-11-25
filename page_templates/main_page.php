@@ -1,4 +1,5 @@
 <?php 
+
 global $mf_plugin;
 $mf_plugin->fetch_post('process_contacts');
 $contacts = $mf_plugin->fetch_table($mf_plugin->table_names);
@@ -18,7 +19,9 @@ function process_contacts(){
 		
 		
 	}
-	$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT('email') FROM $contactsTable;" ));
+	$email = $_POST['email'];
+	$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $contactsTable WHERE email = '$email';" ));
+	
 	if($count > 0){
 		showMessage("email already in use", true);
 		$failed = true;
@@ -33,6 +36,7 @@ function process_contacts(){
 	
 	
 }
+
 ?>
 <h3>Add New Contact</h3>
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
@@ -44,12 +48,19 @@ function process_contacts(){
 	<input class='button-primary' type="submit" value="Add Contact" />
 </form>
 <h3>Contacts</h3>
-<table>
+<table class="widefat">
+	<thead>
+		<th>Name</th>
+		<th>eMail</th>
+		<th>Section</th>
+		<th>Action</th>
+	</thead>
 <?php foreach($contacts as $contact): ?>
 <tr>
 <td><?php echo $contact->name; ?></td>
 <td><?php echo $contact->email; ?></td>
 <td><?php echo $contact->section; ?></td>
+<td><a href=#>Edit</a>/<a href=#>Delete</a></td>
 </tr>
 <?php endforeach; ?>
 </table>
