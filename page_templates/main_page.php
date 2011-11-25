@@ -2,13 +2,13 @@
 
 global $mf_plugin;
 $mf_plugin->fetch_post('process_contacts');
-$contacts = $mf_plugin->fetch_table($mf_plugin->table_names);
+$contacts = $mf_plugin->fetch_table($mf_plugin->table_names[0]);
 
 function process_contacts(){
 	global $mf_plugin, $mf_message, $wpdb;
-	$contactsTable = $mf_plugin->table_names;
+	$contactsTable = $mf_plugin->table_names[0];
 	
-	
+
 	foreach($_POST as $k=>$v){
 		if(!$v){
 			showMessage($k." is a required field", true);
