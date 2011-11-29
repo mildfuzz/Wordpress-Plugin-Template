@@ -58,6 +58,7 @@ function mf_deactivate_plugin(){
 //after install
 include 'pages.php';
 include 'utilities.php';
+include 'shortcode.php';
 
 
 ?>
