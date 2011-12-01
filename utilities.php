@@ -104,6 +104,9 @@ class mf {
 		}
 		return $str;
 	}
+	static function slugger($string){
+		return str_replace(" ","_",strtolower($string));
+	}
 }
 
 ?>

@@ -29,7 +29,7 @@ class PluginSubPage extends PluginPage
 	$this->parse_args($args);
 	$this->include = $include;
 	$this->menu_title = $title;
-	$this->submenu_slug = $this->menu_slug . '_' . $this->slugger($this->menu_title);
+	$this->submenu_slug = $this->menu_slug . '_' . mf::slugger($this->menu_title);
 	
 	$this->add_page();
     }

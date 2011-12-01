@@ -77,9 +77,7 @@ class PluginUtilities{
 		}
 	  }
 	
-	function slugger($string){
-		return str_replace(" ","_",strtolower($string));
-	}
+	
 	
 	//fetch table row
 	function fetch_table($table_name, $where = false){

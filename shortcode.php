@@ -18,16 +18,33 @@ function fetch_contact_form(){
 	<?php if ($message) { ?><div class="mail_message error"><?php echo $message; ?></div><?php } ?>
 	
 	<form class="mail" method="post" action="<?php echo mf::thisPage(); ?>">
-		<input type="hidden" name="contact_form" value="1" />
-		<label for="name">Name</label><input id="name" type="text" name="name" />
-		<label for="email">Email*</label><input id="email" type="text" name="email" />
-		<label for="question">Question</label><select id="question" name="question">
-			<?php foreach($contacts as $contact) :?>
-			<option value="<?php echo $contact->email; ?>"><?php echo $contact->section; ?></option>
-			<?php endforeach; ?>
-		</select>
-		<label for="body">Message*</label>
+		<fieldset> 
+			<legend>Your message</legend> 
+		
+		
 		<textarea id="body" name="body"></textarea>
+		<fieldset>
+			<legend>What is your message about?</legend> 
+		<?php foreach($contacts as $contact) :
+		$slug = mf::slugger($contact->section);
+		?>
+		<label for="<?php echo $slug; ?>"><?php echo $contact->section; ?></label><input id="<?php echo $slug; ?>" type="radio" name="question" value="<?php echo $contact->email; ?>" />
+		<?php endforeach; ?>
+		</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend>About You</legend>     
+		
+		
+		<input type="hidden" name="contact_form" value="1" />
+		<label for="name">Your name</label><input id="name" type="text" name="name" />
+		<label for="email">Your email*</label><input id="email" type="text" name="email" />
+		
+			
+		
+		
+		</fieldset>  
+		
 		<input type="submit" value="Send Message" />
 	</form>
 	<?php

@@ -37,12 +37,15 @@ function add_contact(){
 	}
 	
 	$email = $_POST['email'];
+	/*
+	// EMAIL CHECKING DISABLED
 	$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $contactsTable WHERE email = '$email';" ));
 	
 	if($count > 0){
 		mf::wpLog("email already in use", true);
 		$failed = true;
 	} 
+	*/
 	if($failed) return false;
 	
 	
