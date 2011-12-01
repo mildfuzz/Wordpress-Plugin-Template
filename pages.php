@@ -13,8 +13,8 @@ function install_pages(){
 	
 	
 	$pluginPage = new PluginPage($pages);
-	//$pluginSubPage = new PluginSubPage($pluginPage, 'Sub Page 1',"page_templates/subpage1.php");
-	//$pluginSubPage2 = new PluginSubPage($pluginPage, 'Sub Page 2',"page_templates/subpage2.php");
+	$pluginSubPage = new PluginSubPage($pluginPage, 'Sub Page 1',"page_templates/subpage1.php");
+	$pluginSubPage2 = new PluginSubPage($pluginPage, 'Sub Page 2',"page_templates/subpage2.php");
 	
 	
 	
