@@ -9,6 +9,7 @@ define('GPWD', 'lkqw7274'); // GMail password
 function smtpmailer($to, $from, $from_name, $subject, $body) { 
 	global $error;
 	$mail = new PHPMailer();  // create a new object
+	$mail->IsHTML(); //enable HTML
 	$mail->IsSMTP(); // enable SMTP
 	$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
 	$mail->SMTPAuth = true;  // authentication enabled
