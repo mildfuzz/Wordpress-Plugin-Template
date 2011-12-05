@@ -44,12 +44,12 @@ register_deactivation_hook(__FILE__,'mf_deactivate_plugin');
 	
 function mf_activate_plugin(){
 	global $mf_plugin;
-	$table->activate();
+	$mf_plugin->activate();
 }
 function mf_deactivate_plugin(){
 	global $mf_plugin;
 	
-	$table->deactivate();
+	$mf_plugin->deactivate();
 }
 
 
