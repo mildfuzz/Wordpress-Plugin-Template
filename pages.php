@@ -1,7 +1,11 @@
 <?php
 
 add_action('admin_menu','install_pages');
+add_action('admin_menu','admin_js');
 
+function admin_js(){
+	//wp_enqueue_script('ui',plugins_url('\js\ui.js',__FILE__));
+}
 
 function install_pages(){
 	$pages = array(
